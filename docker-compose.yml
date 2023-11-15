@@ -19,8 +19,9 @@ services:
       - "32414:32414/udp"
     volumes:
       - ${PATH_PLEX}/library:/config
-      - ${PATH_PLEX}/tvseries:/tv
+      - ${PATH_PLEX}/series:/tv
       - ${PATH_PLEX}/movies:/movies
+      - ${PATH_PLEX}/downloads:/plexdownloads
     restart: unless-stopped
 
   transmission:
