@@ -24,17 +24,20 @@ services:
     restart: unless-stopped
 
   transmission:
-    image : jaymoulin/transmission:3.00-1.6.1
-    command: transmission-daemon -f -g /config
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
     volumes:
-      - ./transmission:/config
-      - ${PATH_PLEX}/torrents:/downloads
+      - ${PATH_PLEX}/data:/config
+      - ${PATH_PLEX}/downloads:/downloads
+      - ${PATH_PLEX}/watch:/watch
     ports:
       - 9091:9091
       - 51413:51413
       - 51413:51413/udp
-    expose:
-      - 9091
     restart: unless-stopped
 
   radarr:
@@ -63,7 +66,7 @@ services:
     volumes:
       - ${PATH_PLEX}/sonarr:/config
       - ${PATH_PLEX}/series:/tv
-      - ${PATH_PLEX}/downloads:/downloads
+      - ${PATH_PLEX}/torrents:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -74,7 +77,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Europe/Madrid
       - AUTO_UPDATE=true
     volumes:
       - ${PATH_PLEX}/jackett:/config
