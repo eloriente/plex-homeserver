@@ -56,7 +56,6 @@ services:
     restart: unless-stopped
 
   sonarr:
-  
     image: linuxserver/sonarr
     container_name: sonarr
     environment:
@@ -66,7 +65,7 @@ services:
     volumes:
       - ${PATH_PLEX}/sonarr:/config
       - ${PATH_PLEX}/series:/tv
-      - ${PATH_PLEX}/torrents:/downloads
+      - ${PATH_PLEX}/downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
