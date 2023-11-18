@@ -1,5 +1,12 @@
 version: '2'
 services:
+
+  web:
+    build: ./web-app
+    ports:
+      - '80:80'
+    restart: unless-stopped
+
   plex:
     image: linuxserver/plex
     container_name: plex
