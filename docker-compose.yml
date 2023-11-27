@@ -22,7 +22,7 @@ services:
       - ${PATH_PLEX}/library:/config
       - ${PATH_PLEX}/series:/tv
       - ${PATH_PLEX}/movies:/movies
-      - ${PATH_PLEX}/downloads:/plexdownloads
+      - ${PATH_DISK}/downloads:/plexdownloads
     restart: unless-stopped
 
   transmission:
@@ -34,45 +34,13 @@ services:
       - TZ=Europe/Madrid
     volumes:
       - ${PATH_PLEX}/data:/config
-      - ${PATH_PLEX}/downloads:/downloads
+      - ${PATH_DISK}/downloads:/downloads
       - ${PATH_PLEX}/watch:/watch
     ports:
       - 9091:9091
       - 51413:51413
       - 51413:51413/udp
     restart: unless-stopped
-
-  radarr:
-    image: linuxserver/radarr
-    container_name: radarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Madrid
-    volumes:
-      - ${PATH_PLEX}/radarr:/config
-      - ${PATH_PLEX}/movies:/movies
-      - ${PATH_PLEX}/downloads:/downloads
-    ports:
-      - 7878:7878
-    restart: unless-stopped
-
-  sonarr:
-    image: linuxserver/sonarr
-    container_name: sonarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Madrid
-    volumes:
-      - ${PATH_PLEX}/sonarr:/config
-      - ${PATH_PLEX}/series:/tv
-      - ${PATH_PLEX}/downloads:/downloads
-    ports:
-      - 8989:8989
-    restart: unless-stopped
-
-  jackett:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
     environment:
